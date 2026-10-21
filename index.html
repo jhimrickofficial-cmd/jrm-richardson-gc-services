@@ -1,6 +1,8 @@
-<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>RICHARDSON® — General Contractor &amp; Architectural Construction</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
@@ -11,8 +13,8 @@
             brand: {
               bg: '#FAF9F5',
               dark: '#111111',
-              terracotta: '#B85D36',
-              'terracotta-hover': '#9F4E2C',
+              terracotta: '#B84A29',
+              'terracotta-hover': '#9F3E20',
               rust: '#822F1D',
               border: '#E5E3DC',
               muted: '#737373',
@@ -26,10 +28,11 @@
         }
       }
     }
-  </script>
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style data-purpose="typography">
     body {
       background-color: #FAF9F5;
@@ -40,9 +43,26 @@
     }
     .font-monumental {
       font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.04em;
     }
-  </style>
+    /* Fluid clamp for monumental wordmark preventing clipping of 'N' & '®' */
+    .hero-wordmark {
+      font-size: clamp(2.75rem, 11.2vw, 10.75rem);
+      line-height: 0.88;
+      letter-spacing: -0.045em;
+      width: 100%;
+      text-align: center;
+      display: block;
+    }
+    .footer-wordmark {
+      font-size: clamp(2.5rem, 11vw, 10.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.045em;
+      width: 100%;
+      text-align: center;
+      display: block;
+    }
+</style>
 <style data-purpose="micro-interactions">
     .img-zoom {
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -59,65 +79,104 @@
     .rust-card-border {
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
-  </style>
+    /* Smooth transition for active header and accordions */
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease-out, opacity 0.25s ease-in;
+      opacity: 0;
+    }
+    .faq-item.active .faq-content {
+      max-height: 280px;
+      opacity: 1;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+</style>
 </head>
-<body class="selection:bg-brand-terracotta selection:text-white">
+<body class="selection:bg-brand-terracotta selection:text-white relative">
+<!-- Toast Notification Container -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-brand-dark text-white px-5 py-3.5 shadow-2xl border border-white/20 text-xs font-medium" id="toastNotification">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+<span id="toastMessage">Your inquiry has been submitted successfully!</span>
+</div>
 <!-- BEGIN: MainHeader -->
-<header class="sticky top-0 z-50 bg-[#FAF9F5]/90 backdrop-blur-md editorial-border-b transition-all">
+<header class="sticky top-0 z-50 bg-[#FAF9F5]/90 backdrop-blur-md editorial-border-b transition-all duration-300" id="mainHeader">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
 <!-- Brand Logo -->
-<a class="text-xl font-extrabold tracking-tighter uppercase font-monumental hover:opacity-80 transition-opacity" href="#">
-        RICHARDSON<span class="text-xs font-semibold align-super ml-0.5">®</span>
+<a aria-label="Richardson Home" class="text-xl font-extrabold tracking-tight uppercase font-monumental hover:opacity-80 transition-opacity flex items-center" href="#top">
+      RICHARDSON<span class="text-xs font-semibold align-super ml-0.5">®</span>
 </a>
 <!-- Desktop Navigation Menu -->
-<nav class="hidden md:flex items-center space-x-8 text-xs uppercase font-medium tracking-wider text-brand-dark/80">
-<a class="hover:text-brand-terracotta transition-colors" href="#about">About</a>
-<a class="hover:text-brand-terracotta transition-colors" href="#works">Works</a>
-<a class="hover:text-brand-terracotta transition-colors" href="#process">Process</a>
-<a class="hover:text-brand-terracotta transition-colors" href="#services">Services</a>
-<a class="hover:text-brand-terracotta transition-colors" href="#newsroom">Newsroom</a>
+<nav aria-label="Main Navigation" class="hidden md:flex items-center space-x-8 text-xs uppercase font-medium tracking-wider text-brand-dark/80">
+<a class="nav-link hover:text-brand-terracotta transition-colors py-1 border-b-2 border-transparent" href="#about">About</a>
+<a class="nav-link hover:text-brand-terracotta transition-colors py-1 border-b-2 border-transparent" href="#works">Works</a>
+<a class="nav-link hover:text-brand-terracotta transition-colors py-1 border-b-2 border-transparent" href="#process">Process</a>
+<a class="nav-link hover:text-brand-terracotta transition-colors py-1 border-b-2 border-transparent" href="#services">Services</a>
+<a class="nav-link hover:text-brand-terracotta transition-colors py-1 border-b-2 border-transparent" href="#newsroom">Newsroom</a>
 </nav>
 <!-- Action Button / Direct Dial -->
 <div class="flex items-center space-x-4">
 <a class="hidden sm:inline-flex text-xs font-semibold uppercase tracking-wider text-brand-dark hover:text-brand-terracotta transition-colors" href="tel:+17047747169">
-          +1 (704) 774-7169
-        </a>
+        +1 (704) 774-7169
+      </a>
 <a class="inline-flex items-center justify-center px-5 py-2.5 bg-brand-dark text-white hover:bg-brand-terracotta text-xs font-semibold uppercase tracking-wider transition-colors duration-200" href="#contact">
-          Get in Touch
-        </a>
+        Get in Touch
+      </a>
+<!-- Mobile Menu Toggle Button -->
+<button aria-label="Toggle mobile menu" class="md:hidden p-2 text-brand-dark focus:outline-none" id="mobileMenuBtn">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M4 6h16M4 12h16M4 18h16" id="mobileIconPath" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Mobile Dropdown Navigation -->
+<div class="hidden md:hidden bg-brand-bg px-6 py-6 border-b border-brand-border space-y-4" id="mobileMenu">
+<a class="mobile-nav-link block text-xs uppercase tracking-wider font-semibold text-brand-dark hover:text-brand-terracotta" href="#about">About</a>
+<a class="mobile-nav-link block text-xs uppercase tracking-wider font-semibold text-brand-dark hover:text-brand-terracotta" href="#works">Works</a>
+<a class="mobile-nav-link block text-xs uppercase tracking-wider font-semibold text-brand-dark hover:text-brand-terracotta" href="#process">Process</a>
+<a class="mobile-nav-link block text-xs uppercase tracking-wider font-semibold text-brand-dark hover:text-brand-terracotta" href="#services">Services</a>
+<a class="mobile-nav-link block text-xs uppercase tracking-wider font-semibold text-brand-dark hover:text-brand-terracotta" href="#newsroom">Newsroom</a>
+<div class="pt-4 border-t border-brand-border flex flex-col space-y-2">
+<a class="text-xs font-bold uppercase tracking-wider text-brand-terracotta" href="tel:+17047747169">Call +1 (704) 774-7169</a>
+<p class="text-[11px] text-brand-muted">Mon–Fri: 8am–6pm | Sat: 9am–5pm</p>
 </div>
 </div>
 </header>
 <!-- END: MainHeader -->
-<main>
+<main id="top">
 <!-- BEGIN: GiantMonolithHero -->
-<section class="pt-8 pb-16 lg:pt-14 lg:pb-24 overflow-hidden">
+<section class="pt-8 pb-16 lg:pt-12 lg:pb-24 overflow-hidden">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<!-- Giant Monolith Wordmark Headline matching ALPUN® -->
-<h1 class="text-[12.5vw] sm:text-[13vw] leading-[0.85] font-extrabold uppercase tracking-tight text-center text-brand-dark select-none font-monumental mb-8 lg:mb-12 whitespace-nowrap overflow-visible max-w-full mx-auto px-2">RICHARDSON<span class="text-[0.25em] align-super tracking-normal font-sans ml-0.5">®</span></h1>
+<!-- Giant Monolith Wordmark Headline matching ALPUN® with responsive clamp -->
+<h1 class="hero-wordmark font-extrabold uppercase font-monumental text-brand-dark select-none mb-8 lg:mb-12">
+      RICHARDSON<span class="text-[0.25em] align-super tracking-normal font-sans ml-1 font-semibold">®</span>
+</h1>
 <!-- Wide Atmospheric Hero Banner with CTA Overlay -->
 <div class="relative w-full h-[380px] sm:h-[480px] lg:h-[620px] bg-brand-dark overflow-hidden group">
-<img alt="Richardson GC modern architectural concrete and steel construction in progress" class="w-full h-full object-cover opacity-60 img-zoom filter grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyH8VKWZg3NjgyZ1JnOdHS2tlWdRHGS0hFuu2972SJHDy5Zqke_LEFi9LKWV6I9TZaIFIQ18iDW4GUBP9WjrZRXf4T3kd9dnQoTg-azv3BB0q2AhYQwnEQfG52txAMpg3C9VX51b5GakoIMPJxTuEcAUAYh-71hPWC7yW1rbRobqIwD0vVA961Es-ta1AGiEacDmmUlTRB62SlEMiO9F6bPbZFZ0DzujhKzv29LeV2uWlJetZOpt4aqg">
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+<img alt="Richardson GC modern architectural concrete and steel construction in progress" class="w-full h-full object-cover opacity-60 img-zoom filter grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyH8VKWZg3NjgyZ1JnOdHS2tlWdRHGS0hFuu2972SJHDy5Zqke_LEFi9LKWV6I9TZaIFIQ18iDW4GUBP9WjrZRXf4T3kd9dnQoTg-azv3BB0q2AhYQwnEQfG52txAMpg3C9VX51b5GakoIMPJxTuEcAUAYh-71hPWC7yW1rbRobqIwD0vVA961Es-ta1AGiEacDmmUlTRB62SlEMiO9F6bPbZFZ0DzujhKzv29LeV2uWlJetZOpt4aqg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
 <!-- Banner Hero Content Box -->
 <div class="absolute bottom-6 left-6 sm:bottom-12 sm:left-12 max-w-xl text-left">
 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white mb-4 leading-snug">
-              Building a professional and seamless process. Richardson, your reliable construction partner.
-            </h2>
+          Building a professional and seamless process. Richardson, your reliable construction partner.
+        </h2>
 <div class="flex flex-wrap items-center gap-4">
 <a class="inline-flex items-center px-6 py-3 bg-brand-terracotta hover:bg-brand-terracotta-hover text-white text-xs font-bold uppercase tracking-widest transition-colors duration-200 shadow-sm" href="#contact">
-                Request a Quote
-              </a>
+            Request a Quote
+          </a>
 <span class="text-xs text-white/80 uppercase tracking-widest hidden sm:inline-block">
-                Licensed &amp; Insured Commercial &amp; Residential
-              </span>
+            Licensed &amp; Insured Commercial &amp; Residential
+          </span>
 </div>
 </div>
 </div>
 <!-- Underneath Editorial Philosophy Statement -->
 <div class="mt-20 lg:mt-32 max-w-4xl mx-auto text-center px-4" id="about">
 <p class="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-relaxed text-brand-dark tracking-tight">
-            Richardson brings structure and precision together to create spaces that last. From initial groundwork to final detailing, we ensure each process aligns with architectural vision <span class="text-brand-muted/70">and client satisfaction.</span>
+        Richardson brings structure and precision together to create spaces that last. From initial groundwork to final detailing, we ensure each process aligns with architectural vision <span class="text-brand-muted/70">and client satisfaction.</span>
 </p>
 </div>
 <!-- 3-Column Photography & Stats Showcase -->
@@ -125,31 +184,31 @@
 <!-- Col 1: Crane Construction with Metric -->
 <div class="group">
 <div class="relative h-80 sm:h-96 w-full overflow-hidden bg-brand-card">
-<img alt="Crane and structural framing at sunset" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTYj5zjYLfwhZ0fgdyuBZZcFYoxWPc1baIuT7Ld2hBXjLiX6B1AwXKr59xflgOIcqxrT04kX5MjaqulvIfgrZdkvKvjy-ojfkwUVvKXj6IKJuva4WJ7I3BGAAt0LqGXoW-jTgMsnITcr99YWpQZqrgpYGcn888gEXoUI77_k3V7nbcZHjamoQOxJrP8_-jihXoGSNemFrkjw2MizdDX1RcT5n9PrN0Gk5OiMK_J_W9jRSeS0Ks8DRMwg">
+<img alt="Crane and structural framing at sunset" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTYj5zjYLfwhZ0fgdyuBZZcFYoxWPc1baIuT7Ld2hBXjLiX6B1AwXKr59xflgOIcqxrT04kX5MjaqulvIfgrZdkvKvjy-ojfkwUVvKXj6IKJuva4WJ7I3BGAAt0LqGXoW-jTgMsnITcr99YWpQZqrgpYGcn888gEXoUI77_k3V7nbcZHjamoQOxJrP8_-jihXoGSNemFrkjw2MizdDX1RcT5n9PrN0Gk5OiMK_J_W9jRSeS0Ks8DRMwg"/>
 </div>
 <div class="mt-3 flex items-center space-x-2 text-xs font-semibold tracking-wider text-brand-dark uppercase">
 <span class="w-1.5 h-1.5 rounded-full bg-brand-terracotta"></span>
-<span class="">12+ Years of Experience</span>
+<span>12+ Years of Experience</span>
 </div>
 </div>
 <!-- Col 2: Architectural Facade Rendering -->
 <div class="group">
 <div class="relative h-96 sm:h-[460px] w-full overflow-hidden bg-brand-card">
-<img alt="Minimalist modern architectural glass and concrete building" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJCVfcH0hBzeRRkXgI_A3xKIHXrJdPQ3gsaBRW6dv9xeVQOwLZK8MVKmdwq_S7lkaFWmUNT6FjcQN-ZulPHEnqQ7dhQrLtB9a6nckE_k45vIUrbSY6MJduG3VXzm55Iv-d5mL0PlDBKluCYUUCPfif-RalTz9yGJVPXo_M8CJsCoVXVgOYkVRJRYrceQK-Pm7JuxclyP-BwfZC4JdDvJGE3p4aTFgTepcOK6SyfBOQOEEuLE0bS8St7A">
+<img alt="Minimalist modern architectural glass and concrete building" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJCVfcH0hBzeRRkXgI_A3xKIHXrJdPQ3gsaBRW6dv9xeVQOwLZK8MVKmdwq_S7lkaFWmUNT6FjcQN-ZulPHEnqQ7dhQrLtB9a6nckE_k45vIUrbSY6MJduG3VXzm55Iv-d5mL0PlDBKluCYUUCPfif-RalTz9yGJVPXo_M8CJsCoVXVgOYkVRJRYrceQK-Pm7JuxclyP-BwfZC4JdDvJGE3p4aTFgTepcOK6SyfBOQOEEuLE0bS8St7A"/>
 </div>
 <div class="mt-3 flex items-center space-x-2 text-xs font-semibold tracking-wider text-brand-dark uppercase">
 <span class="w-1.5 h-1.5 rounded-full bg-brand-terracotta"></span>
-<span class="">Regional Coverage &amp; Fast Turnaround</span>
+<span>Regional Coverage &amp; Fast Turnaround</span>
 </div>
 </div>
 <!-- Col 3: Craftsmanship / Engineers on site -->
 <div class="group">
 <div class="relative h-80 sm:h-96 w-full overflow-hidden bg-brand-card">
-<img alt="Construction engineers reviewing technical plans" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQedtEyOs_z2DvzwySVXd58VoXDfv1TLR9elYz_CCmTTq2RDwZz6D4Vgg6d0mZoPfRMGChS3gYDHTi7P5Ef3oGrX56wE29OesuG4iTzhqWFYlqEgQkHCQz6Ef-q7RiPq14ji88Yqko6jkZBLabqdPNs2njYSG1Q_DZnoI5QxIQgk-LzqIRaF22E4e39VWTgu-xJjEcL_azWRtswcTZamc_c9Q0btuNtGFs_-E-XvS_rOxnZ51J0fU6lQ">
+<img alt="Construction engineers reviewing technical plans" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQedtEyOs_z2DvzwySVXd58VoXDfv1TLR9elYz_CCmTTq2RDwZz6D4Vgg6d0mZoPfRMGChS3gYDHTi7P5Ef3oGrX56wE29OesuG4iTzhqWFYlqEgQkHCQz6Ef-q7RiPq14ji88Yqko6jkZBLabqdPNs2njYSG1Q_DZnoI5QxIQgk-LzqIRaF22E4e39VWTgu-xJjEcL_azWRtswcTZamc_c9Q0btuNtGFs_-E-XvS_rOxnZ51J0fU6lQ"/>
 </div>
 <div class="mt-3 flex items-center space-x-2 text-xs font-semibold tracking-wider text-brand-dark uppercase">
 <span class="w-1.5 h-1.5 rounded-full bg-brand-terracotta"></span>
-<span class="">150+ Projects Accomplished</span>
+<span>150+ Projects Accomplished</span>
 </div>
 </div>
 </div>
@@ -162,90 +221,90 @@
 <!-- Section Header -->
 <div class="text-center max-w-2xl mx-auto mb-16 lg:mb-24">
 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase font-monumental text-brand-dark">
-            FEATURED WORKS <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[04]</span>
+        FEATURED WORKS <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[04]</span>
 </h2>
 <p class="mt-3 text-sm text-brand-muted tracking-wide">
-            Discover our portfolio of innovative projects, showcasing our commitment to quality, engineering precision, and client satisfaction.
-          </p>
+        Discover our portfolio of innovative projects, showcasing our commitment to quality, engineering precision, and client satisfaction.
+      </p>
 </div>
 <!-- Works 2x2 Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
 <!-- Project 01 -->
-<div class="group cursor-pointer">
+<article class="group cursor-pointer">
 <div class="relative h-[320px] sm:h-[400px] w-full overflow-hidden bg-brand-card">
-<img alt="Lombard Pavilion Villa project" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJo8K4pHNvVP9vzlIIAqkPuk1cS8y62WQpH3GYCnol7W-YQlo-VXaQUfig89bPSPzE8LK5vpn21Lewd8zwvDcCKlrrWbRqrkwjClXOJWgkX3RjjanayXGNEFoxedasAdYfDyiihQd_wzqaHi19wQKXmEqg_woZwe9L9XyANSsCGVMaMNLn_FTJdTgIXQv3fEmc-59SajhgUNzCwM2fMYBIgICFxzKSpOT2DyvWIybWJXL7JTunn0nSHQ">
+<img alt="Lombard Modern Villa project" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJo8K4pHNvVP9vzlIIAqkPuk1cS8y62WQpH3GYCnol7W-YQlo-VXaQUfig89bPSPzE8LK5vpn21Lewd8zwvDcCKlrrWbRqrkwjClXOJWgkX3RjjanayXGNEFoxedasAdYfDyiihQd_wzqaHi19wQKXmEqg_woZwe9L9XyANSsCGVMaMNLn_FTJdTgIXQv3fEmc-59SajhgUNzCwM2fMYBIgICFxzKSpOT2DyvWIybWJXL7JTunn0nSHQ"/>
 </div>
 <div class="mt-4 flex items-center justify-between">
 <h3 class="text-base sm:text-lg font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                Lombard Modern Villa
-              </h3>
-<span class="text-xs text-brand-muted">↗</span>
+            Lombard Modern Villa
+          </h3>
+<span class="text-xs text-brand-muted group-hover:text-brand-terracotta transition-colors font-mono">↗</span>
 </div>
 <div class="mt-1 flex items-center space-x-3 text-xs text-brand-muted uppercase tracking-wider">
-<span class="">Charlotte, NC</span>
-<span class="">•</span>
-<span class="">10 Months</span>
-<span class="">•</span>
-<span class="">Full Custom Build</span>
+<span>Charlotte, NC</span>
+<span>•</span>
+<span>10 Months</span>
+<span>•</span>
+<span>Full Custom Build</span>
 </div>
-</div>
+</article>
 <!-- Project 02 -->
-<div class="group cursor-pointer">
+<article class="group cursor-pointer">
 <div class="relative h-[320px] sm:h-[400px] w-full overflow-hidden bg-brand-card">
-<img alt="Emerald Lucia Residentials architecture" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLUlVeyZ8cMwDhc552l7CCHrbakl5wzHuN3wfRC9QNeGNe0CSIoGbdGRbSBuAf_Y7BEaDby8AyL732zl6wh1tSfN14Q0R_ZoKjKsbKoIpOCb4VqgM7kk4ei8NSqJmw7ROW_gj6HMZxaMnHGTM6CrhhmraQcoVHf7LOXg2cIyaznJnchEXyXpX9ebD9kx5082O32hvCRFLD8dpUDXjZyDW8hLEAKyNc8Fxh1FW7yJnqpztZGlH0xo_vcg">
+<img alt="Emerald Lucia Residentials architecture" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLUlVeyZ8cMwDhc552l7CCHrbakl5wzHuN3wfRC9QNeGNe0CSIoGbdGRbSBuAf_Y7BEaDby8AyL732zl6wh1tSfN14Q0R_ZoKjKsbKoIpOCb4VqgM7kk4ei8NSqJmw7ROW_gj6HMZxaMnHGTM6CrhhmraQcoVHf7LOXg2cIyaznJnchEXyXpX9ebD9kx5082O32hvCRFLD8dpUDXjZyDW8hLEAKyNc8Fxh1FW7yJnqpztZGlH0xo_vcg"/>
 </div>
 <div class="mt-4 flex items-center justify-between">
 <h3 class="text-base sm:text-lg font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                Emerald Lucia Residentials
-              </h3>
-<span class="text-xs text-brand-muted">↗</span>
+            Emerald Lucia Residentials
+          </h3>
+<span class="text-xs text-brand-muted group-hover:text-brand-terracotta transition-colors font-mono">↗</span>
 </div>
 <div class="mt-1 flex items-center space-x-3 text-xs text-brand-muted uppercase tracking-wider">
-<span class="">Raleigh, NC</span>
-<span class="">•</span>
-<span class="">12 Months</span>
-<span class="">•</span>
-<span class="">Multi-Unit Framing</span>
+<span>Raleigh, NC</span>
+<span>•</span>
+<span>12 Months</span>
+<span>•</span>
+<span>Multi-Unit Framing</span>
 </div>
-</div>
+</article>
 <!-- Project 03 -->
-<div class="group cursor-pointer">
+<article class="group cursor-pointer">
 <div class="relative h-[320px] sm:h-[400px] w-full overflow-hidden bg-brand-card">
-<img alt="Riverside Commercial Headquarters" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIBoC5hgX5CbmUJBT94G_o8sgtMzBwTDQndvEWmREL5tdjed7ymhybYJJ5pq8pTf1FZ7OjZRiosP-YZBhS2bjg_i2HtLuKKMtfkHCUNMv4em6ids5UeeKnuemcAJIjbqrg8_o2towdnLyz5qiviqXfIXNepccMbkFlZp8MBqBRsQRpWpWZso2SygZEHDbd9aNgixHnSnAgsBqp6C48VD24jfiyrpqxTnSyadVxrosPaOi0h_5Ac3xUpA">
+<img alt="Riverside Commercial Headquarters" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIBoC5hgX5CbmUJBT94G_o8sgtMzBwTDQndvEWmREL5tdjed7ymhybYJJ5pq8pTf1FZ7OjZRiosP-YZBhS2bjg_i2HtLuKKMtfkHCUNMv4em6ids5UeeKnuemcAJIjbqrg8_o2towdnLyz5qiviqXfIXNepccMbkFlZp8MBqBRsQRpWpWZso2SygZEHDbd9aNgixHnSnAgsBqp6C48VD24jfiyrpqxTnSyadVxrosPaOi0h_5Ac3xUpA"/>
 </div>
 <div class="mt-4 flex items-center justify-between">
 <h3 class="text-base sm:text-lg font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                Riverside Commercial Center
-              </h3>
-<span class="text-xs text-brand-muted">↗</span>
+            Riverside Commercial Center
+          </h3>
+<span class="text-xs text-brand-muted group-hover:text-brand-terracotta transition-colors font-mono">↗</span>
 </div>
 <div class="mt-1 flex items-center space-x-3 text-xs text-brand-muted uppercase tracking-wider">
-<span class="">Fort Mill, SC</span>
-<span class="">•</span>
-<span class="">16 Months</span>
-<span class="">•</span>
-<span class="">Commercial Shell &amp; Fitout</span>
+<span>Fort Mill, SC</span>
+<span>•</span>
+<span>16 Months</span>
+<span>•</span>
+<span>Commercial Shell &amp; Fitout</span>
 </div>
-</div>
+</article>
 <!-- Project 04 -->
-<div class="group cursor-pointer">
+<article class="group cursor-pointer">
 <div class="relative h-[320px] sm:h-[400px] w-full overflow-hidden bg-brand-card">
-<img alt="Horizontal Industrial Facility" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx7KFw9fi4ruj0YFBT4DEFmn9U6QhN_NziMvU45jGuMVUu5sXJuTN93pu6SWEAFfEWinBnJ-cwtjDSYzQZXmpbsBIthZ4SySZU8xp3fa3GxhubeY7qeKqqp-BqT2GcfEsaW7BZIP_jc5q5ELi3UPHdCXg51KZW8BOYjTzEHFZIho8560ewfT2YpvACEzx4BKWs_4QpaaUOYfwAhq342GY5TUUarmFT0hatMmW7PZKuT-WUb9uMNWju1Q">
+<img alt="Horizontal Industrial Facility" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx7KFw9fi4ruj0YFBT4DEFmn9U6QhN_NziMvU45jGuMVUu5sXJuTN93pu6SWEAFfEWinBnJ-cwtjDSYzQZXmpbsBIthZ4SySZU8xp3fa3GxhubeY7qeKqqp-BqT2GcfEsaW7BZIP_jc5q5ELi3UPHdCXg51KZW8BOYjTzEHFZIho8560ewfT2YpvACEzx4BKWs_4QpaaUOYfwAhq342GY5TUUarmFT0hatMmW7PZKuT-WUb9uMNWju1Q"/>
 </div>
 <div class="mt-4 flex items-center justify-between">
 <h3 class="text-base sm:text-lg font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                Horizontal Industrial Facility
-              </h3>
-<span class="text-xs text-brand-muted">↗</span>
+            Horizontal Industrial Facility
+          </h3>
+<span class="text-xs text-brand-muted group-hover:text-brand-terracotta transition-colors font-mono">↗</span>
 </div>
 <div class="mt-1 flex items-center space-x-3 text-xs text-brand-muted uppercase tracking-wider">
-<span class="">Rock Hill, SC</span>
-<span class="">•</span>
-<span class="">14 Months</span>
-<span class="">•</span>
-<span class="">High-Bay Facility</span>
+<span>Rock Hill, SC</span>
+<span>•</span>
+<span>14 Months</span>
+<span>•</span>
+<span>High-Bay Facility</span>
 </div>
-</div>
+</article>
 </div>
 </div>
 </section>
@@ -254,19 +313,24 @@
 <section class="py-20 lg:py-32 editorial-border-t" id="process">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-<!-- Left Column: Title and intro text -->
+<!-- Left Column: Title and operating hours card -->
 <div class="lg:col-span-4 lg:sticky lg:top-28 h-fit">
 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase font-monumental text-brand-dark">
-              HOW WE WORK <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[05]</span>
+          HOW WE WORK <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[05]</span>
 </h2>
 <p class="mt-4 text-sm text-brand-muted leading-relaxed">
-              Don't think too much about miscommunication, cost overruns, and delayed progress; our experienced general contracting team handles it.
-            </p>
+          Don't think too much about miscommunication, cost overruns, and delayed progress; our experienced general contracting team handles every phase with absolute clarity.
+        </p>
 <div class="mt-8 pt-8 editorial-border-t">
 <p class="text-xs font-bold uppercase tracking-wider text-brand-dark mb-2">Operating Hours</p>
 <p class="text-xs text-brand-muted">Mon–Fri: 8:00 AM – 6:00 PM</p>
 <p class="text-xs text-brand-muted">Saturday: 9:00 AM – 5:00 PM</p>
 <p class="text-xs text-brand-muted">Sunday: Closed</p>
+</div>
+<div class="mt-8">
+<a class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-brand-terracotta hover:underline" href="#contact">
+            Discuss Your Schedule →
+          </a>
 </div>
 </div>
 <!-- Right Column: 5 Sequential Process Cards -->
@@ -279,8 +343,8 @@
 </div>
 <h3 class="text-lg font-bold text-brand-dark mb-2">Initial Consultation &amp; Blueprint Assessment</h3>
 <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                We begin by understanding your vision, goals, architectural permits, and project requirements to ensure every decision aligns with your expectations from day one.
-              </p>
+            We begin by understanding your vision, goals, architectural permits, and project requirements to ensure every decision aligns with your expectations from day one.
+          </p>
 </div>
 <!-- Step 2 -->
 <div class="p-6 sm:p-8 bg-brand-card/70 border border-brand-border rounded-none hover:border-brand-dark transition-all duration-300">
@@ -290,8 +354,8 @@
 </div>
 <h3 class="text-lg font-bold text-brand-dark mb-2">Site Assessment &amp; Structural Feasibility</h3>
 <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                Our site engineers conduct a rigorous evaluation of the ground, zoning rules, utilities, environmental conditions, and structural requirements to shape a sound project roadmap.
-              </p>
+            Our site engineers conduct a rigorous evaluation of the ground, zoning rules, utilities, environmental conditions, and structural requirements to shape a sound project roadmap.
+          </p>
 </div>
 <!-- Step 3 -->
 <div class="p-6 sm:p-8 bg-brand-card/70 border border-brand-border rounded-none hover:border-brand-dark transition-all duration-300">
@@ -301,8 +365,8 @@
 </div>
 <h3 class="text-lg font-bold text-brand-dark mb-2">Planning, Permitting &amp; Precise Budgeting</h3>
 <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                We translate insights into a structured, itemized plan—defining schedules, subcontractor scopes, materials, and fixed estimates to eliminate hidden expenses.
-              </p>
+            We translate insights into a structured, itemized plan—defining schedules, subcontractor scopes, materials, and fixed estimates to eliminate hidden expenses.
+          </p>
 </div>
 <!-- Step 4 -->
 <div class="p-6 sm:p-8 bg-brand-card/70 border border-brand-border rounded-none hover:border-brand-dark transition-all duration-300">
@@ -312,8 +376,8 @@
 </div>
 <h3 class="text-lg font-bold text-brand-dark mb-2">Construction Execution &amp; Quality Control</h3>
 <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                With verified tradesmen and project superintendents on site, we execute the build with daily oversight, safety certifications, and regular milestone reports sent directly to you.
-              </p>
+            With verified tradesmen and project superintendents on site, we execute the build with daily oversight, safety certifications, and regular milestone reports sent directly to you.
+          </p>
 </div>
 <!-- Step 5 -->
 <div class="p-6 sm:p-8 bg-brand-card/70 border border-brand-border rounded-none hover:border-brand-dark transition-all duration-300">
@@ -323,8 +387,8 @@
 </div>
 <h3 class="text-lg font-bold text-brand-dark mb-2">Final Walkthrough &amp; Handover</h3>
 <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                We deliver a spotless, code-certified space that meets both aesthetic intent and engineering durability, accompanied by full warranty documentation.
-              </p>
+            We deliver a spotless, code-certified space that meets both aesthetic intent and engineering durability, accompanied by full warranty documentation.
+          </p>
 </div>
 </div>
 </div>
@@ -338,13 +402,13 @@
 <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20">
 <div>
 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase font-monumental text-brand-dark">
-              SERVICES <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[04]</span>
+          SERVICES <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[04]</span>
 </h2>
 </div>
 <div class="mt-4 md:mt-0 max-w-sm">
 <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-              We offer comprehensive construction and architectural execution tailored to bring your vision to life with precision, compliance, and lasting quality.
-            </p>
+          We offer comprehensive construction and architectural execution tailored to bring your vision to life with precision, compliance, and lasting quality.
+        </p>
 </div>
 </div>
 <!-- Services Editorial Table List -->
@@ -353,65 +417,65 @@
 <div class="py-8 lg:py-10 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline group hover:bg-white/40 transition-colors px-2">
 <div class="md:col-span-5 flex items-center justify-between">
 <h3 class="text-xl sm:text-2xl font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                Commercial Development
-              </h3>
+            Commercial Development
+          </h3>
 <span class="text-brand-muted md:hidden">↗</span>
 </div>
 <div class="md:col-span-3 text-xs text-brand-muted space-y-1">
-<p class="">Expected Timeline: 6–24 Months</p>
-<p class="">Budget Estimation: Custom Spec</p>
+<p>Expected Timeline: 6–24 Months</p>
+<p>Budget Estimation: Custom Spec</p>
 </div>
 <div class="md:col-span-4 text-xs sm:text-sm text-brand-muted leading-relaxed">
-              Specialized in innovative commercial projects, retail plazas, corporate shells, and industrial warehouses designed for operational efficiency.
-            </div>
+          Specialized in innovative commercial projects, retail plazas, corporate shells, and industrial warehouses designed for operational efficiency.
+        </div>
 </div>
 <!-- Service Row 2 -->
 <div class="py-8 lg:py-10 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline group hover:bg-white/40 transition-colors px-2">
 <div class="md:col-span-5 flex items-center justify-between">
 <h3 class="text-xl sm:text-2xl font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                Residential Construction
-              </h3>
+            Residential Construction
+          </h3>
 <span class="text-brand-muted md:hidden">↗</span>
 </div>
 <div class="md:col-span-3 text-xs text-brand-muted space-y-1">
-<p class="">Expected Timeline: 4–12 Months</p>
-<p class="">Budget Estimation: Tailored Quote</p>
+<p>Expected Timeline: 4–12 Months</p>
+<p>Budget Estimation: Tailored Quote</p>
 </div>
 <div class="md:col-span-4 text-xs sm:text-sm text-brand-muted leading-relaxed">
-              Crafting bespoke modern custom homes and estates with precision framing, premium timber finishes, energy-efficient building envelopes, and modern detailing.
-            </div>
+          Crafting bespoke modern custom homes and estates with precision framing, premium timber finishes, energy-efficient building envelopes, and modern detailing.
+        </div>
 </div>
 <!-- Service Row 3 -->
 <div class="py-8 lg:py-10 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline group hover:bg-white/40 transition-colors px-2">
 <div class="md:col-span-5 flex items-center justify-between">
 <h3 class="text-xl sm:text-2xl font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                General Project Management
-              </h3>
+            General Project Management
+          </h3>
 <span class="text-brand-muted md:hidden">↗</span>
 </div>
 <div class="md:col-span-3 text-xs text-brand-muted space-y-1">
-<p class="">Expected Timeline: Variable</p>
-<p class="">Budget Estimation: Fee or Fixed %</p>
+<p>Expected Timeline: Variable</p>
+<p>Budget Estimation: Fee or Fixed %</p>
 </div>
 <div class="md:col-span-4 text-xs sm:text-sm text-brand-muted leading-relaxed">
-              Full general contractor oversight from procurement to safety compliance, keeping multi-trade teams synchronized, on time, and strictly on budget.
-            </div>
+          Full general contractor oversight from procurement to safety compliance, keeping multi-trade teams synchronized, on time, and strictly on budget.
+        </div>
 </div>
 <!-- Service Row 4 -->
 <div class="py-8 lg:py-10 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline group hover:bg-white/40 transition-colors px-2">
 <div class="md:col-span-5 flex items-center justify-between">
 <h3 class="text-xl sm:text-2xl font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                Structural Renovation &amp; Rebuilding
-              </h3>
+            Structural Renovation &amp; Rebuilding
+          </h3>
 <span class="text-brand-muted md:hidden">↗</span>
 </div>
 <div class="md:col-span-3 text-xs text-brand-muted space-y-1">
-<p class="">Expected Timeline: 2–8 Months</p>
-<p class="">Budget Estimation: Tiered Estimate</p>
+<p>Expected Timeline: 2–8 Months</p>
+<p>Budget Estimation: Tiered Estimate</p>
 </div>
 <div class="md:col-span-4 text-xs sm:text-sm text-brand-muted leading-relaxed">
-              Revitalizing existing structures with reinforced foundations, load-bearing modifications, modern safety upgrades, and aesthetic continuity.
-            </div>
+          Revitalizing existing structures with reinforced foundations, load-bearing modifications, modern safety upgrades, and aesthetic continuity.
+        </div>
 </div>
 </div>
 </div>
@@ -423,11 +487,11 @@
 <!-- Center Header -->
 <div class="text-center max-w-xl mx-auto mb-16">
 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase font-monumental text-white">
-            WHY CHOOSE US <span class="text-sm font-medium tracking-normal text-white/60 align-super">[06]</span>
+        WHY CHOOSE US <span class="text-sm font-medium tracking-normal text-white/60 align-super">[06]</span>
 </h2>
 <p class="mt-3 text-sm text-white/80">
-            We forge lasting relationships grounded in integrity, licensed trade transparency, and relentless pursuit of excellence.
-          </p>
+        We forge lasting relationships grounded in integrity, licensed trade transparency, and relentless pursuit of excellence.
+      </p>
 </div>
 <!-- 6 Cards Grid (Matching ALPUN rust colored section) -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -438,8 +502,8 @@
 <p class="mt-2 text-xs uppercase tracking-wider text-white/70">Certified Tradesmen &amp; Supervisors</p>
 </div>
 <p class="text-xs text-white/80 leading-relaxed">
-              Directly employed and vetted specialists to bring your blueprints to life with exacting craft.
-            </p>
+          Directly employed and vetted specialists to bring your blueprints to life with exacting craft.
+        </p>
 </div>
 <!-- Card 2 -->
 <div class="p-8 bg-black/15 rust-card-border flex flex-col justify-between h-64 hover:bg-black/25 transition-colors">
@@ -448,8 +512,8 @@
 <h3 class="text-base font-bold uppercase tracking-wider">Transparent Cost Breakdown</h3>
 </div>
 <p class="text-xs text-white/80 leading-relaxed">
-              Itemized materials, realistic labor buffers, and zero hidden markups from initial estimate to completion.
-            </p>
+          Itemized materials, realistic labor buffers, and zero hidden markups from initial estimate to completion.
+        </p>
 </div>
 <!-- Card 3 -->
 <div class="p-8 bg-black/15 rust-card-border flex flex-col justify-between h-64 hover:bg-black/25 transition-colors">
@@ -458,8 +522,8 @@
 <h3 class="text-base font-bold uppercase tracking-wider">Sustainable Materials</h3>
 </div>
 <p class="text-xs text-white/80 leading-relaxed">
-              We prioritize eco-friendly, locally sourced lumber and low-carbon concrete mixes to maximize durability.
-            </p>
+          We prioritize eco-friendly, locally sourced lumber and low-carbon concrete mixes to maximize durability.
+        </p>
 </div>
 <!-- Card 4 -->
 <div class="p-8 bg-black/15 rust-card-border flex flex-col justify-between h-64 hover:bg-black/25 transition-colors">
@@ -468,8 +532,8 @@
 <h3 class="text-base font-bold uppercase tracking-wider">On-Time Project Guarantee</h3>
 </div>
 <p class="text-xs text-white/80 leading-relaxed">
-              Critical-path project scheduling ensures every contractor and milestone strictly meets predefined completion dates.
-            </p>
+          Critical-path project scheduling ensures every contractor and milestone strictly meets predefined completion dates.
+        </p>
 </div>
 <!-- Card 5 -->
 <div class="p-8 bg-black/15 rust-card-border flex flex-col justify-between h-64 hover:bg-black/25 transition-colors">
@@ -478,18 +542,18 @@
 <h3 class="text-base font-bold uppercase tracking-wider">Dedicated Site Superintendent</h3>
 </div>
 <p class="text-xs text-white/80 leading-relaxed">
-              A single point of contact accountable on your job site every single morning, ensuring seamless daily updates.
-            </p>
+          A single point of contact accountable on your job site every single morning, ensuring seamless daily updates.
+        </p>
 </div>
 <!-- Card 6: Photo/Badge Hybrid Card -->
 <div class="relative p-8 overflow-hidden rust-card-border flex flex-col justify-end h-64 group">
-<img alt="Richardson architectural structure" class="absolute inset-0 w-full h-full object-cover opacity-35 img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2J5mvyOsdPQIzNmxwe5YpK8Req0euEi1ljPnmQqVttqzoObR6cqxFIHJHArz2zhIrihwIwxdD3iTmTWBKGwuBxTMo8yK2xv88-ipCX4WDWeUGelIa8CDInK08t9VtxDAvXrEeCQkUrdryU985KZllmYn3gjH41GK4BwtuzpREI4FuNgMpl4hOgzIiO_KV9kBss9p2IbxN8VTeQkQvy1oKBiota_4DPNObYDEd6IYtPrvRPMqs-cDTLw">
+<img alt="Richardson architectural structure" class="absolute inset-0 w-full h-full object-cover opacity-35 img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2J5mvyOsdPQIzNmxwe5YpK8Req0euEi1ljPnmQqVttqzoObR6cqxFIHJHArz2zhIrihwIwxdD3iTmTWBKGwuBxTMo8yK2xv88-ipCX4WDWeUGelIa8CDInK08t9VtxDAvXrEeCQkUrdryU985KZllmYn3gjH41GK4BwtuzpREI4FuNgMpl4hOgzIiO_KV9kBss9p2IbxN8VTeQkQvy1oKBiota_4DPNObYDEd6IYtPrvRPMqs-cDTLw"/>
 <div class="absolute inset-0 bg-brand-rust/60 mix-blend-multiply"></div>
 <div class="relative z-10">
 <h3 class="text-base font-bold uppercase tracking-wider mb-2">We're Built By The Trust</h3>
 <a class="inline-block px-4 py-2 bg-white text-brand-dark text-xs font-bold uppercase tracking-wider hover:bg-brand-bg transition-colors" href="#contact">
-                Start With Us
-              </a>
+            Start With Us
+          </a>
 </div>
 </div>
 </div>
@@ -501,11 +565,11 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center max-w-xl mx-auto mb-16">
 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase font-monumental text-brand-dark">
-            THE RECOGNITIONS <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[06]</span>
+        THE RECOGNITIONS <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[06]</span>
 </h2>
 <p class="mt-3 text-sm text-brand-muted">
-            Richardson GC Services has been honored with multiple regional awards for our engineering discipline and client care.
-          </p>
+        Richardson GC Services has been honored with multiple regional awards for our engineering discipline and client care.
+      </p>
 </div>
 <!-- Awards List (Editorial Row Format) -->
 <div class="divide-y divide-brand-border border-y border-brand-border max-w-4xl mx-auto">
@@ -559,13 +623,13 @@
 <section class="py-20 lg:py-28 editorial-border-b bg-[#F5F4EE]">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase font-monumental text-brand-dark mb-12">
-          TESTIMONIALS <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[02]</span>
+      TESTIMONIALS <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[02]</span>
 </h2>
 <!-- Testimonial Editorial Feature Card -->
 <div class="grid grid-cols-1 md:grid-cols-12 bg-brand-bg border border-brand-border max-w-4xl">
 <!-- Metric / Visual Left Col -->
 <div class="md:col-span-5 bg-brand-dark relative p-8 flex flex-col justify-between text-white overflow-hidden">
-<img alt="Corporate interior finished build" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1sUlCjbo-OLtxQ9ZgK8iFW9thdFPr4TsGgxedi8Oc5VI3fPwNjtGyGPIUTd61yfRTKFDQ49_9dwL4Sb98NfjgiGC5YBaL1i5UBM2K70CgVnzjELzEzyIseM3M0hp4kOpFl1Nj0xawCIFG5-fas3pHIAgIUxoTUpwQkuk6ozl7pG-Y4tk-sxkQ_P_joz7Ey_xDol7tIaPuVWAlDDo65MQ2E78eMEM2TNyPBZ3reII1lb_INWk3FIvhLg">
+<img alt="Corporate interior finished build" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1sUlCjbo-OLtxQ9ZgK8iFW9thdFPr4TsGgxedi8Oc5VI3fPwNjtGyGPIUTd61yfRTKFDQ49_9dwL4Sb98NfjgiGC5YBaL1i5UBM2K70CgVnzjELzEzyIseM3M0hp4kOpFl1Nj0xawCIFG5-fas3pHIAgIUxoTUpwQkuk6ozl7pG-Y4tk-sxkQ_P_joz7Ey_xDol7tIaPuVWAlDDo65MQ2E78eMEM2TNyPBZ3reII1lb_INWk3FIvhLg"/>
 <div class="relative z-10">
 <span class="text-xs uppercase tracking-widest text-brand-terracotta font-bold">Verified Result</span>
 </div>
@@ -577,14 +641,14 @@
 <!-- Quote Right Col -->
 <div class="md:col-span-7 p-8 sm:p-12 flex flex-col justify-between">
 <blockquote class="text-base sm:text-xl font-medium text-brand-dark leading-relaxed">
-              “Working with Richardson GC has been transformative. Our modern commercial space is not only visually stunning but also completed ahead of schedule, with exemplary budget discipline throughout.”
-            </blockquote>
+          “Working with Richardson GC has been transformative. Our modern commercial space is not only visually stunning but also completed ahead of schedule, with exemplary budget discipline throughout.”
+        </blockquote>
 <div class="mt-8 pt-6 editorial-border-t flex items-center justify-between">
 <div>
 <p class="text-xs font-bold uppercase tracking-wider text-brand-dark">Marcus Vance</p>
 <p class="text-xs text-brand-muted">COO, Apex Capital Holdings</p>
 </div>
-<div class="flex text-amber-500 text-xs">★★★★★</div>
+<div aria-label="5 stars rating" class="flex text-amber-500 text-xs tracking-wider">★★★★★</div>
 </div>
 </div>
 </div>
@@ -595,29 +659,29 @@
 <div class="inline-block h-6 w-6 rounded-full ring-2 ring-brand-bg bg-neutral-500"></div>
 <div class="inline-block h-6 w-6 rounded-full ring-2 ring-brand-bg bg-neutral-600"></div>
 </div>
-<p class=""><strong class="text-brand-dark">Client satisfaction is a top priority</strong> — 4.9* Rating Online</p>
+<p><strong class="text-brand-dark font-semibold">Client satisfaction is a top priority</strong> — 4.9★ Rating Online across 120+ client reviews</p>
 </div>
 </div>
 </section>
 <!-- END: TestimonialsSection -->
 <!-- BEGIN: BannerCTASection -->
 <section class="relative w-full h-96 lg:h-[480px] bg-brand-dark overflow-hidden flex items-center">
-<img alt="Modern brutalist architectural structure" class="absolute inset-0 w-full h-full object-cover opacity-30 filter contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9kLceWcupL3DiHfwLxhJvdrSnIGEWPK2IzBpFh8_-srynpoUSzlX710s0DIFIW0ilrtk_lzeFS6THOyFFmD4Z8_N4iaQixRd5KdAJV3esOTecJM8PXU0xMqBjWCTLIOBGh_F1BwcYpZ6UbC1Azqw5qsoufkIEtq-tIkokavgIM5rZbnRKDBLX7IfQfpxkWY66iy1fyihNMvFe3p4g39ze5E02AAmvUxTk9Oa33KZupNCSrctGtMC70Q">
+<img alt="Modern brutalist architectural structure" class="absolute inset-0 w-full h-full object-cover opacity-30 filter contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9kLceWcupL3DiHfwLxhJvdrSnIGEWPK2IzBpFh8_-srynpoUSzlX710s0DIFIW0ilrtk_lzeFS6THOyFFmD4Z8_N4iaQixRd5KdAJV3esOTecJM8PXU0xMqBjWCTLIOBGh_F1BwcYpZ6UbC1Azqw5qsoufkIEtq-tIkokavgIM5rZbnRKDBLX7IfQfpxkWY66iy1fyihNMvFe3p4g39ze5E02AAmvUxTk9Oa33KZupNCSrctGtMC70Q"/>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
 <div class="max-w-md bg-black/85 p-8 sm:p-10 border border-white/10 backdrop-blur-sm">
 <h2 class="text-2xl sm:text-3xl font-extrabold uppercase font-monumental text-white tracking-tight leading-tight">
-            The Future of Construction Is Here
-          </h2>
+        The Future of Construction Is Here
+      </h2>
 <p class="mt-3 text-xs sm:text-sm text-white/70 leading-relaxed">
-            With a focus on structural innovation, sustainability, and transparency, we deliver exceptional results turning construction dreams into tangible realities.
-          </p>
+        With a focus on structural innovation, sustainability, and transparency, we deliver exceptional results turning construction dreams into tangible realities.
+      </p>
 <div class="mt-6 flex flex-wrap gap-4 items-center">
 <a class="px-5 py-2.5 bg-brand-terracotta hover:bg-brand-terracotta-hover text-white text-xs font-bold uppercase tracking-wider transition-colors" href="#contact">
-              Request a Quote
-            </a>
+          Request a Quote
+        </a>
 <a class="px-5 py-2.5 border border-white/30 text-white hover:bg-white hover:text-brand-dark text-xs font-bold uppercase tracking-wider transition-colors" href="#services">
-              Explore Services
-            </a>
+          Explore Services
+        </a>
 </div>
 </div>
 </div>
@@ -628,61 +692,61 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="mb-12">
 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase font-monumental text-brand-dark">
-            NEWSROOM <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[04]</span>
+        NEWSROOM <span class="text-sm font-medium tracking-normal text-brand-muted align-super">[04]</span>
 </h2>
 <p class="mt-2 text-xs sm:text-sm text-brand-muted">
-            Stay up to date with the latest commercial construction, architectural trends, and project milestones from Richardson GC Services.
-          </p>
+        Stay up to date with the latest commercial construction, architectural trends, and project milestones from Richardson GC Services.
+      </p>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 <!-- Featured Large Article (Left) -->
-<div class="lg:col-span-6 group cursor-pointer">
+<article class="lg:col-span-6 group cursor-pointer">
 <div class="relative h-72 sm:h-96 w-full overflow-hidden bg-brand-card">
-<img alt="Timber frame and architectural structure" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0-0pgcp2TvFy1ocdPaZSvVMNBv46WCfkJd94hW6RE5ANLdUUfbML0F8xsApGU5DBQW9vxcpqrOBMemKsALa7-v9Sj8Z_vK4pK0MMhU2GOiPZ_NLy0oxO7P-YxVpYo-3DA4WINt-orlAl0H6iTz0H6FBZ68KiaRuk_0gAN0Ndn0qiZv8PsKBNMw1zBJLkK4UfeuJSa2NjtsFWVfw399nf2SFEXLxtPUy-CvQMKsx1eZbqN-48HX-dRWQ">
+<img alt="Timber frame and architectural structure" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0-0pgcp2TvFy1ocdPaZSvVMNBv46WCfkJd94hW6RE5ANLdUUfbML0F8xsApGU5DBQW9vxcpqrOBMemKsALa7-v9Sj8Z_vK4pK0MMhU2GOiPZ_NLy0oxO7P-YxVpYo-3DA4WINt-orlAl0H6iTz0H6FBZ68KiaRuk_0gAN0Ndn0qiZv8PsKBNMw1zBJLkK4UfeuJSa2NjtsFWVfw399nf2SFEXLxtPUy-CvQMKsx1eZbqN-48HX-dRWQ"/>
 <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
 <span class="text-white text-xl sm:text-2xl font-extrabold font-monumental tracking-widest">
-                  WAF® 2026
-                </span>
+              WAF® 2026
+            </span>
 </div>
 </div>
 <p class="mt-4 text-xs font-mono text-brand-muted uppercase">March 11, 2026</p>
 <h3 class="mt-1 text-lg sm:text-xl font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-              Architectural recognition awards results: Richardson nominated for commercial innovation
-            </h3>
-</div>
+          Architectural recognition awards results: Richardson nominated for commercial innovation
+        </h3>
+</article>
 <!-- Secondary Article Rows (Right) -->
 <div class="lg:col-span-6 flex flex-col justify-between space-y-6">
 <article class="flex space-x-4 group cursor-pointer">
 <div class="w-32 h-24 flex-shrink-0 overflow-hidden bg-brand-card">
-<img alt="Modern commercial office space construction" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAtWCe7gDessiHIxp4BA6-tnpCBp_psMTmNHowQJt8Os93CarnXuM0Sm05FmL3EY6polxH4H9z_evUud7DEAI3e43vgmK3MAdDGHbGAywT8am_3kLHrE1qRGFX5VlF4DND0CaEASxDISv3Nv2o5waNPCuzH9WU6wwlPeG2Q_Sp3CPX37t_Z9MbfQBHE7MzM7-RuZVlcLnAzuhM9eb1GTppvrKH55dLzqEXPHzxMGIO1RhS53jCs7x4XQ">
+<img alt="Modern commercial office space construction" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAtWCe7gDessiHIxp4BA6-tnpCBp_psMTmNHowQJt8Os93CarnXuM0Sm05FmL3EY6polxH4H9z_evUud7DEAI3e43vgmK3MAdDGHbGAywT8am_3kLHrE1qRGFX5VlF4DND0CaEASxDISv3Nv2o5waNPCuzH9WU6wwlPeG2Q_Sp3CPX37t_Z9MbfQBHE7MzM7-RuZVlcLnAzuhM9eb1GTppvrKH55dLzqEXPHzxMGIO1RhS53jCs7x4XQ"/>
 </div>
 <div>
 <span class="text-[10px] font-mono uppercase text-brand-muted">March 22, 2026</span>
 <h4 class="text-sm font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                  Designing Efficient Workspaces: The Role and Impact of Architecture in Productivity
-                </h4>
+              Designing Efficient Workspaces: The Role and Impact of Architecture in Productivity
+            </h4>
 </div>
 </article>
 <article class="flex space-x-4 group cursor-pointer">
 <div class="w-32 h-24 flex-shrink-0 overflow-hidden bg-brand-card">
-<img alt="Blueprint to concrete slab" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfEC5Z0juiHYL-cpeH5QFqFF92serLc6XNuXWdBCp9sU8SIHKdyMyz3T4jxMHvQsQP9QLOKdqTL5-1jzoDbKjzVuUnlrjn6hBO-_ycLWAXbGas8co1OdFP-Nei6EhWZQF84u9kDGJeSPeOD3ZbWXu7DfC3B3R-i0WXUFEghFyGWW9v5IbGDuIhrjhtHKyc7F_bVpMAt4uwkTlU9z3Ms4ILSPKFAggk4xMpzY3-jPOJuUi6IVOjw1IQCA">
+<img alt="Blueprint to concrete slab" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfEC5Z0juiHYL-cpeH5QFqFF92serLc6XNuXWdBCp9sU8SIHKdyMyz3T4jxMHvQsQP9QLOKdqTL5-1jzoDbKjzVuUnlrjn6hBO-_ycLWAXbGas8co1OdFP-Nei6EhWZQF84u9kDGJeSPeOD3ZbWXu7DfC3B3R-i0WXUFEghFyGWW9v5IbGDuIhrjhtHKyc7F_bVpMAt4uwkTlU9z3Ms4ILSPKFAggk4xMpzY3-jPOJuUi6IVOjw1IQCA"/>
 </div>
 <div>
 <span class="text-[10px] font-mono uppercase text-brand-muted">March 01, 2026</span>
 <h4 class="text-sm font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                  From Blueprint to Reality: The Key Phases Behind Successful Turnkey Construction
-                </h4>
+              From Blueprint to Reality: The Key Phases Behind Successful Turnkey Construction
+            </h4>
 </div>
 </article>
 <article class="flex space-x-4 group cursor-pointer">
 <div class="w-32 h-24 flex-shrink-0 overflow-hidden bg-brand-card">
-<img alt="Sustainable modern building" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXW16XCLS7qxouq7vXHotkX1SAuDJ2LNcjK9mc_ypll9FVk3e_dUcWQtinEsDMv2au035NCYF-PdmypgTFqIEBev_qKrBjx-tRftLr6-XwKCKAFLgnoqh3NdVQ3G4WKoD2w-dTwPH0kfeJU60hVW7myFMGZe3yTKMSFAbs6FuCwUoloATjfW-JI_x6MAvMS5mkj4d4qlz-LE2KdCPqeme2L5KELGj5zzxcuHyg1H3THAZ2JZOpdr0E-g">
+<img alt="Sustainable modern building" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXW16XCLS7qxouq7vXHotkX1SAuDJ2LNcjK9mc_ypll9FVk3e_dUcWQtinEsDMv2au035NCYF-PdmypgTFqIEBev_qKrBjx-tRftLr6-XwKCKAFLgnoqh3NdVQ3G4WKoD2w-dTwPH0kfeJU60hVW7myFMGZe3yTKMSFAbs6FuCwUoloATjfW-JI_x6MAvMS5mkj4d4qlz-LE2KdCPqeme2L5KELGj5zzxcuHyg1H3THAZ2JZOpdr0E-g"/>
 </div>
 <div>
 <span class="text-[10px] font-mono uppercase text-brand-muted">April 15, 2026</span>
 <h4 class="text-sm font-bold text-brand-dark group-hover:text-brand-terracotta transition-colors">
-                  Building for the Future: How Sustainable Construction Is Redefining Modern Projects
-                </h4>
+              Building for the Future: How Sustainable Construction Is Redefining Modern Projects
+            </h4>
 </div>
 </article>
 </div>
@@ -690,6 +754,58 @@
 </div>
 </section>
 <!-- END: NewsroomSection -->
+<!-- BEGIN: FAQ / Accordion Section -->
+<section class="py-20 lg:py-28 editorial-border-b bg-[#F7F6F1]">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-14">
+<h2 class="text-2xl sm:text-3xl font-extrabold uppercase font-monumental text-brand-dark">
+        FREQUENTLY ASKED QUESTIONS
+      </h2>
+<p class="mt-2 text-xs sm:text-sm text-brand-muted">
+        Clear answers about our project management, procurement, and licensing guidelines.
+      </p>
+</div>
+<div class="divide-y divide-brand-border border-y border-brand-border">
+<!-- FAQ 1 -->
+<div class="faq-item py-5">
+<button aria-expanded="false" class="faq-btn w-full flex items-center justify-between text-left focus:outline-none py-2">
+<span class="text-sm sm:text-base font-bold text-brand-dark">How are project budgets and scopes estimated?</span>
+<span class="faq-icon text-lg font-mono text-brand-terracotta transition-transform duration-300">＋</span>
+</button>
+<div class="faq-content">
+<p class="text-xs sm:text-sm text-brand-muted leading-relaxed pt-2 pb-3">
+            We provide comprehensive itemized bids based on complete blueprint takeoffs, site inspections, and trade coordination. Every estimate clearly outlines material costs, labor hours, permitting, and a dedicated contingency buffer to prevent budget creep.
+          </p>
+</div>
+</div>
+<!-- FAQ 2 -->
+<div class="faq-item py-5">
+<button aria-expanded="false" class="faq-btn w-full flex items-center justify-between text-left focus:outline-none py-2">
+<span class="text-sm sm:text-base font-bold text-brand-dark">Is Richardson GC fully licensed and insured?</span>
+<span class="faq-icon text-lg font-mono text-brand-terracotta transition-transform duration-300">＋</span>
+</button>
+<div class="faq-content">
+<p class="text-xs sm:text-sm text-brand-muted leading-relaxed pt-2 pb-3">
+            Yes, Richardson GC Services holds active Unlimited Commercial &amp; Residential General Contractor licensing, comprehensive general liability coverage, and full workers' compensation coverage for all superintendents and subcontractors.
+          </p>
+</div>
+</div>
+<!-- FAQ 3 -->
+<div class="faq-item py-5">
+<button aria-expanded="false" class="faq-btn w-full flex items-center justify-between text-left focus:outline-none py-2">
+<span class="text-sm sm:text-base font-bold text-brand-dark">What is your typical project timeline from consultation to groundbreaking?</span>
+<span class="faq-icon text-lg font-mono text-brand-terracotta transition-transform duration-300">＋</span>
+</button>
+<div class="faq-content">
+<p class="text-xs sm:text-sm text-brand-muted leading-relaxed pt-2 pb-3">
+            Depending on local municipal permitting and engineering readiness, preconstruction typically requires 3 to 8 weeks. Once permits are approved, mobilization occurs within 10 business days.
+          </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: FAQ Section -->
 <!-- BEGIN: ContactSection -->
 <section class="py-20 lg:py-32" id="contact">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -697,37 +813,39 @@
 <!-- Left: Inquiry Form -->
 <div class="lg:col-span-6">
 <h2 class="text-3xl sm:text-4xl font-extrabold uppercase font-monumental tracking-tight text-brand-dark">
-              LET'S GET IN TOUCH
-            </h2>
+          LET'S GET IN TOUCH
+        </h2>
 <p class="mt-2 text-xs sm:text-sm text-brand-muted">
-              Submit your project details below or call our field desk directly at <a class="font-bold text-brand-dark hover:text-brand-terracotta transition-colors" href="tel:+17047747169">+1 (704) 774-7169</a>.
-            </p>
+          Submit your project details below or call our field desk directly at <a class="font-bold text-brand-dark hover:text-brand-terracotta transition-colors" href="tel:+17047747169">+1 (704) 774-7169</a>.
+        </p>
 <!-- Working Hours pill card -->
 <div class="mt-6 p-4 bg-brand-card border border-brand-border text-xs text-brand-dark">
 <p class="font-bold uppercase tracking-wider mb-1">Operating Hours</p>
 <div class="flex flex-wrap gap-x-4 text-brand-muted">
-<span class="">Weekdays: 8:00 AM – 6:00 PM</span>
-<span class="">Sat: 9:00 AM – 5:00 PM</span>
-<span class="">Sun: Closed</span>
+<span>Weekdays: 8:00 AM – 6:00 PM</span>
+<span>Sat: 9:00 AM – 5:00 PM</span>
+<span>Sun: Closed</span>
 </div>
 </div>
 <!-- Functional Contact Form -->
-<form class="mt-8 space-y-4" id="contactForm">
+<form class="mt-8 space-y-4" id="contactForm" novalidate="">
 <div>
 <label class="sr-only" for="fullName">Full Name</label>
-<input class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all placeholder:text-brand-muted" id="fullName" placeholder="Full Name *" required="" type="text">
+<input class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all placeholder:text-brand-muted" id="fullName" name="fullName" placeholder="Full Name *" required="" type="text"/>
+<span class="text-[11px] text-red-600 hidden mt-1" id="nameError">Please enter your full name.</span>
 </div>
 <div>
 <label class="sr-only" for="emailAddress">Email Address</label>
-<input class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all placeholder:text-brand-muted" id="emailAddress" placeholder="Email Address *" required="" type="email">
+<input class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all placeholder:text-brand-muted" id="emailAddress" name="emailAddress" placeholder="Email Address *" required="" type="email"/>
+<span class="text-[11px] text-red-600 hidden mt-1" id="emailError">Please enter a valid email address.</span>
 </div>
 <div>
 <label class="sr-only" for="phone">Phone Number</label>
-<input class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all placeholder:text-brand-muted" id="phone" placeholder="Phone Number" type="tel">
+<input class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all placeholder:text-brand-muted" id="phone" name="phone" placeholder="Phone Number (e.g. 704-555-0199)" type="tel"/>
 </div>
 <div>
 <label class="sr-only" for="inquiryType">Select Inquiries</label>
-<select class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all text-brand-dark" id="inquiryType">
+<select class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all text-brand-dark" id="inquiryType" name="inquiryType">
 <option value="commercial">Commercial Development</option>
 <option value="residential">Residential Custom Construction</option>
 <option value="renovation">Structural Rebuilding &amp; Renovation</option>
@@ -737,28 +855,31 @@
 </div>
 <div>
 <label class="sr-only" for="message">Write Message Here</label>
-<textarea class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all placeholder:text-brand-muted resize-none" id="message" placeholder="Write Message Here... (e.g. project location, estimated start date, blueprint status)" required="" rows="4"></textarea>
+<textarea class="w-full text-xs bg-transparent border border-brand-border py-3 px-4 focus:ring-1 focus:ring-brand-dark focus:border-brand-dark outline-none transition-all placeholder:text-brand-muted resize-none" id="message" name="message" placeholder="Write Message Here... (e.g. project location, estimated start date, blueprint status)" required="" rows="4"></textarea>
+<span class="text-[11px] text-red-600 hidden mt-1" id="messageError">Please provide brief details about your inquiry.</span>
 </div>
 <div>
-<button class="w-full sm:w-auto px-8 py-3.5 bg-brand-terracotta hover:bg-brand-terracotta-hover text-white text-xs font-bold uppercase tracking-widest transition-colors duration-200" type="submit">
-                  Send a Message
-                </button>
+<button class="w-full sm:w-auto px-8 py-3.5 bg-brand-terracotta hover:bg-brand-terracotta-hover text-white text-xs font-bold uppercase tracking-widest transition-colors duration-200 flex items-center justify-center gap-2" id="submitBtn" type="submit">
+<span>Send a Message</span>
+<span class="hidden w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" id="buttonSpinner"></span>
+</button>
 </div>
-<div class="hidden text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 p-3" id="formSuccessMessage">
-                Thank you! Your inquiry has been submitted. A Richardson GC project engineer will review your specs and call you within 1 business day.
-              </div>
+<div class="hidden text-xs text-emerald-800 bg-emerald-50 border border-emerald-300 p-4 transition-all" id="formSuccessMessage">
+<p class="font-bold uppercase tracking-wider mb-0.5">Thank You — Inquiry Received!</p>
+<p>A Richardson GC project superintendent will review your project specs and call you within 1 business day.</p>
+</div>
 </form>
 <!-- Social Links beneath form matching reference -->
 <div class="mt-10 pt-6 editorial-border-t flex flex-wrap gap-6 text-xs font-semibold text-brand-dark uppercase tracking-wider">
-<a class="hover:text-brand-terracotta transition-colors" href="#">Instagram</a>
-<a class="hover:text-brand-terracotta transition-colors" href="#">LinkedIn</a>
-<a class="hover:text-brand-terracotta transition-colors" href="#">YouTube</a>
-<a class="hover:text-brand-terracotta transition-colors" href="#">Facebook</a>
+<a class="hover:text-brand-terracotta transition-colors" href="https://instagram.com" rel="noopener noreferrer" target="_blank">Instagram</a>
+<a class="hover:text-brand-terracotta transition-colors" href="https://linkedin.com" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+<a class="hover:text-brand-terracotta transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank">YouTube</a>
+<a class="hover:text-brand-terracotta transition-colors" href="https://facebook.com" rel="noopener noreferrer" target="_blank">Facebook</a>
 </div>
 </div>
 <!-- Right: Tall Spiral Architectural Photo Matching Reference -->
 <div class="lg:col-span-6 h-[500px] lg:h-[680px] w-full overflow-hidden bg-brand-card">
-<img alt="Architectural spiral interior stair structure" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGjaHNwdlFIezSqrlm0Xpw6oL0vzRRz_7MWANGrVU46WiooXSrvdjmFDBWJNJTFqf3NZupSN5l2KF3ZIFpx1m-Tko1H3XQSRYodpJZrPqH29lykArCAID6OEfTkDv0A1tgwoXQ0LBy2269o0gTzDl4Eicqj6eWOnEXe70P9TK6uIqQEXXwyf7aT8xAmyMrq0S352-wgVMoZNc1mHJvbgvIiR7hXVCL8kpkHtgDes9BSvuMJsED6RlqBA">
+<img alt="Architectural spiral interior stair structure" class="w-full h-full object-cover img-zoom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGjaHNwdlFIezSqrlm0Xpw6oL0vzRRz_7MWANGrVU46WiooXSrvdjmFDBWJNJTFqf3NZupSN5l2KF3ZIFpx1m-Tko1H3XQSRYodpJZrPqH29lykArCAID6OEfTkDv0A1tgwoXQ0LBy2269o0gTzDl4Eicqj6eWOnEXe70P9TK6uIqQEXXwyf7aT8xAmyMrq0S352-wgVMoZNc1mHJvbgvIiR7hXVCL8kpkHtgDes9BSvuMJsED6RlqBA"/>
 </div>
 </div>
 </div>
@@ -773,71 +894,246 @@
 <div class="md:col-span-5">
 <p class="text-xs uppercase tracking-widest font-bold text-brand-dark mb-2">Richardson GC Services</p>
 <p class="text-xs text-brand-muted max-w-sm leading-relaxed">
-            Licensed General Contracting &amp; Project Management delivering precision residential, industrial, and commercial structures.
-          </p>
+          Licensed General Contracting &amp; Project Management delivering precision residential, industrial, and commercial structures.
+        </p>
 <p class="mt-4 text-xs text-brand-dark">
-            Direct Phone: <a class="underline hover:text-brand-terracotta font-semibold" href="tel:+17047747169">+1 (704) 774-7169</a>
+          Direct Phone: <a class="underline hover:text-brand-terracotta font-semibold" href="tel:+17047747169">+1 (704) 774-7169</a>
 </p>
 </div>
 <div class="md:col-span-3">
 <p class="text-xs uppercase tracking-widest font-bold text-brand-dark mb-4">Quick Links</p>
 <ul class="space-y-2 text-xs text-brand-muted">
-<li class=""><a class="hover:text-brand-dark transition-colors" href="#about">About Us</a></li>
-<li class=""><a class="hover:text-brand-dark transition-colors" href="#works">Works &amp; Projects</a></li>
-<li class=""><a class="hover:text-brand-dark transition-colors" href="#process">How We Work</a></li>
-<li class=""><a class="hover:text-brand-dark transition-colors" href="#services">Services</a></li>
-<li class=""><a class="hover:text-brand-dark transition-colors" href="#newsroom">Newsroom</a></li>
+<li><a class="hover:text-brand-dark transition-colors" href="#about">About Us</a></li>
+<li><a class="hover:text-brand-dark transition-colors" href="#works">Works &amp; Projects</a></li>
+<li><a class="hover:text-brand-dark transition-colors" href="#process">How We Work</a></li>
+<li><a class="hover:text-brand-dark transition-colors" href="#services">Services</a></li>
+<li><a class="hover:text-brand-dark transition-colors" href="#newsroom">Newsroom</a></li>
 </ul>
 </div>
 <div class="md:col-span-4">
 <p class="text-xs uppercase tracking-widest font-bold text-brand-dark mb-4">Operations &amp; Compliance</p>
 <div class="space-y-2 text-xs text-brand-muted">
-<p class="">Hours: Mon–Fri 8am–6pm | Sat 9am–5pm</p>
-<p class="">Licensed &amp; Insured General Contractor</p>
-<p class="">Safety Protocol: OSHA 30 Certified Supervised</p>
+<p>Hours: Mon–Fri 8am–6pm | Sat 9am–5pm</p>
+<p>Sunday: Closed</p>
+<p>Licensed &amp; Insured General Contractor</p>
+<p>Safety Protocol: OSHA 30 Certified Supervised</p>
 <p class="pt-2"><a class="text-brand-terracotta font-bold hover:underline" href="#contact">Get an Estimate →</a></p>
 </div>
 </div>
 </div>
 <!-- Giant Monolithic Footer Wordmark Matching Reference -->
 <div class="editorial-border-t pt-8 pb-4">
-<div class="text-[11.5vw] sm:text-[12vw] leading-none font-extrabold uppercase tracking-tight text-center text-brand-dark font-monumental select-none opacity-90 whitespace-nowrap overflow-visible max-w-full mx-auto px-2">RICHARDSON<span class="text-[0.2em] align-super tracking-normal font-sans ml-0.5">®</span></div>
+<div class="footer-wordmark font-extrabold uppercase font-monumental text-brand-dark select-none opacity-90">
+        RICHARDSON<span class="text-[0.22em] align-super tracking-normal font-sans ml-1 font-semibold">®</span>
+</div>
 </div>
 <!-- Bottom Bar -->
 <div class="mt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-brand-muted gap-4">
-<p class="">© 2026 Richardson GC Services. All rights reserved.</p>
+<p>© 2026 Richardson GC Services. All rights reserved.</p>
 <div class="flex space-x-6">
-<a class="hover:text-brand-dark transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-brand-dark transition-colors" href="#">Terms of Service</a>
-<a class="hover:text-brand-dark transition-colors" href="#">Contractor Licensure</a>
+<a class="hover:text-brand-dark transition-colors" href="#privacy">Privacy Policy</a>
+<a class="hover:text-brand-dark transition-colors" href="#terms">Terms of Service</a>
+<a class="hover:text-brand-dark transition-colors" href="#licensure">Contractor Licensure</a>
 </div>
 </div>
 </div>
 </footer>
 <!-- END: MainFooter -->
-<!-- BEGIN: FormSubmissionScript -->
-<script data-purpose="form-handling">
-    document.addEventListener('DOMContentLoaded', () => {
-      const contactForm = document.getElementById('contactForm');
-      const successMessage = document.getElementById('formSuccessMessage');
+<!-- BEGIN: Complete Clean JavaScript Engine -->
+<script data-purpose="app-logic">
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Smooth Scrolling with Offset Calculation for Fixed Header
+    const header = document.getElementById('mainHeader');
+    const headerOffset = header ? header.offsetHeight : 80;
 
-      if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          
-          // Simple visual confirmation
-          if (successMessage) {
-            successMessage.classList.remove('hidden');
-            contactForm.reset();
-            setTimeout(() => {
-              successMessage.classList.add('hidden');
-            }, 6000);
-          }
+    const smoothScroll = (targetSelector) => {
+      if (!targetSelector || targetSelector === '#') return;
+      const targetElement = document.querySelector(targetSelector);
+      if (targetElement) {
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - (headerOffset - 10);
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         });
       }
+    };
+
+    // Attach smooth scrolling to all anchor links pointing to on-page IDs
+    const internalAnchors = document.querySelectorAll('a[href^="#"]');
+    internalAnchors.forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#') && href.length > 1) {
+          e.preventDefault();
+          smoothScroll(href);
+
+          // Close mobile menu if opened
+          const mobileMenu = document.getElementById('mobileMenu');
+          if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
     });
-  </script>
-<!-- END: FormSubmissionScript -->
 
+    // 2. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
 
+    // 3. Navigation Active State on Scroll (Intersection Observer)
+    const sections = ['about', 'works', 'process', 'services', 'newsroom', 'contact'];
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const updateActiveNav = () => {
+      let currentSection = '';
+      const scrollY = window.pageYOffset;
+
+      sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+          const sectionTop = section.offsetTop - 120;
+          const sectionHeight = section.offsetHeight;
+          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            currentSection = id;
+          }
+        }
+      });
+
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === `#${currentSection}`) {
+          link.classList.add('text-brand-terracotta', 'border-brand-terracotta');
+          link.classList.remove('text-brand-dark/80', 'border-transparent');
+        } else {
+          link.classList.remove('text-brand-terracotta', 'border-brand-terracotta');
+          link.classList.add('text-brand-dark/80', 'border-transparent');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
+
+    // 4. FAQ Accordion Toggle Interaction
+    const faqButtons = document.querySelectorAll('.faq-btn');
+    faqButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parentItem = btn.closest('.faq-item');
+        const isActive = parentItem.classList.contains('active');
+
+        // Close other items
+        document.querySelectorAll('.faq-item').forEach(item => {
+          item.classList.remove('active');
+          const itemBtn = item.querySelector('.faq-btn');
+          if (itemBtn) itemBtn.setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isActive) {
+          parentItem.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // 5. Toast Notification Helper
+    const showToast = (message) => {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      if (toast && toastMsg) {
+        toastMsg.textContent = message;
+        toast.classList.remove('translate-y-24', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-24', 'opacity-0');
+        }, 5000);
+      }
+    };
+
+    // 6. Contact Form Validation & Submission Handling
+    const contactForm = document.getElementById('contactForm');
+    const formSuccessMessage = document.getElementById('formSuccessMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    const buttonSpinner = document.getElementById('buttonSpinner');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nameInput = document.getElementById('fullName');
+        const emailInput = document.getElementById('emailAddress');
+        const messageInput = document.getElementById('message');
+
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const messageError = document.getElementById('messageError');
+
+        let isValid = true;
+
+        // Name check
+        if (!nameInput.value.trim()) {
+          nameError.classList.remove('hidden');
+          nameInput.classList.add('border-red-500');
+          isValid = false;
+        } else {
+          nameError.classList.add('hidden');
+          nameInput.classList.remove('border-red-500');
+        }
+
+        // Email check
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value.trim())) {
+          emailError.classList.remove('hidden');
+          emailInput.classList.add('border-red-500');
+          isValid = false;
+        } else {
+          emailError.classList.add('hidden');
+          emailInput.classList.remove('border-red-500');
+        }
+
+        // Message check
+        if (!messageInput.value.trim()) {
+          messageError.classList.remove('hidden');
+          messageInput.classList.add('border-red-500');
+          isValid = false;
+        } else {
+          messageError.classList.add('hidden');
+          messageInput.classList.remove('border-red-500');
+        }
+
+        if (!isValid) return;
+
+        // Visual loading state
+        if (buttonSpinner) buttonSpinner.classList.remove('hidden');
+        submitBtn.setAttribute('disabled', 'true');
+
+        setTimeout(() => {
+          if (buttonSpinner) buttonSpinner.classList.add('hidden');
+          submitBtn.removeAttribute('disabled');
+
+          if (formSuccessMessage) {
+            formSuccessMessage.classList.remove('hidden');
+          }
+
+          showToast('Inquiry sent! A Richardson project lead will contact you soon.');
+          contactForm.reset();
+
+          // Retain message for 8 seconds
+          setTimeout(() => {
+            if (formSuccessMessage) formSuccessMessage.classList.add('hidden');
+          }, 8000);
+        }, 700);
+      });
+    }
+  });
+</script>
+<!-- END: Complete Clean JavaScript Engine -->
 </body></html>
